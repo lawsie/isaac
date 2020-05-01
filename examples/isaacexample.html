@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Isaac Computer Science statistics</title>
+        <link href="../parsons.css" rel="stylesheet" />
+        <link href="../lib/prettify.css" rel="stylesheet" />
+        <script src="../lib/prettify.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Exo:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+        <style type="text/css">
+        h2{
+          font-family: 'Exo', sans-serif;
+        }
+        body{
+          font-family: 'Open Sans', sans-serif;
+        }
+        </style>
+    </head>
+    <body>
+        <h2>Isaac Computer Science statistics</h2>
+        <p>Put the Isaac Computer Science stats in order from highest to lowest.</p>
+        <div id="sortableTrash" class="sortable-code"></div>
+        <div id="sortable" class="sortable-code">
+        </div>
+        <div style="clear:both;"></div>
+        <p>
+            <a href="#" id="newInstanceLink">Start again</a>
+            <a href="#" id="feedbackLink" style="border: 1px solid #000; background-color: green; padding: 5px; color: black">Check my answer</a>
+        </p>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <script src="../lib/jquery.ui.touch-punch.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/lis.js"></script>
+        <script src="../parsons.js"></script>
+        <script>
+        var initial = 'Number of question attempts since launch\n' +
+                      'Total registered users\n' +
+                      'Registered teachers\n' +
+                      'Days between first meeting and content completion\n' +
+                      'Raspberry Pi desktop kits given away\n' +
+                      'Topics\n' +
+                      'Face to face events run before Coronavirus\n' +
+                      'Number of content authors'
+
+        function displayErrors(fb) {
+            if(fb.errors.length > 0) {
+                alert(fb.errors[0]);
+            }
+        }
+
+        $(document).ready(function(){
+            var parson = new ParsonsWidget({
+                'sortableId': 'sortable',
+                'trashId': 'sortableTrash',
+                'max_wrong_lines': 1,
+                'feedback_cb' : displayErrors
+            });
+            parson.init(initial);
+            parson.shuffleLines();
+            $("#newInstanceLink").click(function(event){
+                event.preventDefault();
+                parson.shuffleLines();
+            });
+            $("#feedbackLink").click(function(event){
+                event.preventDefault();
+                parson.getFeedback();
+            });
+        });
+        </script>
+    </body>
+</html>
